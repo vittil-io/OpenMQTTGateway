@@ -35,6 +35,10 @@
 #include "TheengsCommon.h"
 #include "TheengsUtils.h"
 
+#ifdef VITTIL_ENABLED
+#  include <vittil.h>
+#endif
+
 #if defined(CONFIG_IDF_TARGET_ESP32) && !defined(ZgatewayBT) && !defined(USE_BLUFI)
 #  include "esp_bt.h" // esp_bt_mem_release() — BT DRAM reclaim in setup()
 #endif
@@ -1342,6 +1346,9 @@ void updateAndHandleLEDsTask() {
 }
 
 void setup() {
+#ifdef VITTIL_ENABLED
+  vittil_start();
+#endif
   //Launch serial for debugging purposes
   Serial.begin(SERIAL_BAUD);
   Log.begin(LOG_LEVEL, &Serial);
